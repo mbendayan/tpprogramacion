@@ -21,7 +21,7 @@ Order.init(
       defaultValue:"user"
     },
     UserId: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: false,
       defaultValue:"user"
     },

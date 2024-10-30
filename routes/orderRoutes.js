@@ -3,12 +3,12 @@ import OrderController from "../controllers/OrdersControllers.js";
 
 const orderController = new OrderController();
 
-const userRoutes = Router();
+const orderRoutes = Router();
 
-userRoutes.get("/", orderController.getAllUsers);
-userRoutes.get("/:id", orderController.getUserById);
-userRoutes.post("/", orderController.createUser);
-userRoutes.put("/:id", orderController.updateUser);
-userRoutes.delete("/:id", orderController.deleteUser);
+orderRoutes.get("/", orderController.getAllOrders);
+orderRoutes.get("/:id", orderController.getOrderById);
+orderRoutes.post("/", orderController.createOrder);
+orderRoutes.put("/:id", orderController.updateOrder);
+orderRoutes.delete("/:id", orderController.deleteOrder);
 
-export default userRoutes;
+export default orderRoutes;
