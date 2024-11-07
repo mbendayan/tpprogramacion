@@ -16,7 +16,7 @@ app.use((req, res, next) => {
   });
 });
 
-await connection.sync({force:false})
+await connection.sync({force:true})
 
 app.listen(8000, () => {
   console.log(`🚀 ~ app.listen ~ localhost:8000`);

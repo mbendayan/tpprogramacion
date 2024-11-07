@@ -5,25 +5,20 @@ class Order extends Model {}
 
 Order.init(
   {
-    product: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      defaultValue:"user"
-    },
     amount: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.INTEGER,
       allowNull: false,
-      defaultValue:"user"
-    },
-    price: {
-      type: DataTypes.NUMBER,
-      allowNull: false,
-      defaultValue:"user"
+      defaultValue:0
     },
     UserId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      defaultValue:"user"
+      defaultValue:0
+    },
+    ProductId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue:0
     },
   },
   {

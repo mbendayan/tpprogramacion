@@ -1,10 +1,9 @@
-import {Order, User} from "../models/index.js"
+import {Order, User,Product} from "../models/index.js"
 
 class OrderService {
   getAllOrdersService = async () => {
     try {
       const data = await Order.findAll({
-        attributes:["product"],
         include:User
       });
       return data;
@@ -12,12 +11,20 @@ class OrderService {
       throw error;
     }
   };
-  getOrderByIdService = (id) => {
-    return "get order by id service";
+  getOrderByIdService = async (id) => {
+    try {
+      const data = await Product.findById(id)({
+        include:User,
+        include:Product
+      });
+      return data;
+    } catch (error) {
+      throw error;
+    }
   };
   createOrderService = async (orderData) => {
     try {
-      const data = await Order.create(order);
+      const data = await Order.create(orderData);
       return data;
     } catch (error) {
       throw error;
@@ -31,4 +38,4 @@ class OrderService {
   };
 }
 
-export default Order;
+export default OrderService;

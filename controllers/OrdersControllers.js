@@ -20,8 +20,8 @@ class OrdersControllers {
   };
   createOrder = async (req, res) => {
     try {
-      const { UserId, amount, product, price } = req.body;
-      const order = await this.orderService.createOrderService({ UserId, amount, product, price });
+      const { UserId, ProductId, price } = req.body;
+      const order = await this.orderService.createOrderService({ UserId, ProductId, price });
       // console.log(`🚀 ~ OrdersControllers ~ createOrder= ~ order:`, order);
       res.status(200).send({ success: true, message: order });
     } catch (error) {
