@@ -11,8 +11,7 @@ class ProductService {
   };
   getProductByIdService = async (id) => {
     try {
-      const data = await Product.findOne(id)({});
-      return data;
+      return await Product.findByPk(parseInt(id)).then(data => {return data});
     } catch (error) {
       throw error;
     }
@@ -25,11 +24,26 @@ class ProductService {
       throw error;
     }
   };
-  updateProductService = (id) => {
-    return "update product service";
-  };
-  deleteProductService = (id) => {
-    return "delete product service";
+    
+  updateProductService = async(productData) => {
+      try {
+        await User.update(productData,
+        { where: { id: productData.id } })
+        .then(data => {return data});
+        return productData;
+      } catch (error) {
+        throw error;
+      }
+    };
+    
+  deleteProductService = async (id2) => {
+    try {
+      await Product.destroy({
+        where: { id:id2},
+      })
+    } catch (error) {
+      throw error;
+    }
   };
 }
 

@@ -15,9 +15,11 @@ class UserControllers {
     }
   };
   getUserById = (req, res) => {
-    const user = this.userService.getUserByIdService();
-    res.status(200).send(user);
+    this.userService.getUserByIdService(req.params.id).then((user) => {
+      res.status(200).send(user);
+    });
   };
+
   createUser = async (req, res) => {
     try {
       const { name, pass, mail } = req.body;
@@ -31,12 +33,13 @@ class UserControllers {
       });
     }
   };
-  updateUser = (req, res) => {
-    const user = this.userService.updateUserService();
-    res.status(200).send(user);
+  updateUser = async (req, res) => {
+      const { id,name, pass, mail } = req.body;
+      const user = await this.userService.updateUserService({ id,name, pass, mail });
+      res.status(200).send({ success: true, message: user });
   };
   deleteUser = (req, res) => {
-    const user = this.userService.deleteUserService();
+    const user = this.userService.deleteUserService(req.params.id);
     res.status(200).send(user);
   };
 }

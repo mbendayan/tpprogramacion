@@ -15,13 +15,13 @@ class OrdersControllers {
     }
   };
   getOrderById = (req, res) => {
-    const order = this.orderService.getOrderByIdService();
-    res.status(200).send(order);
+    this.orderService.getOrderByIdService(req.params.id)
+    .then((order) => {res.status(200).send(order)});    
   };
   createOrder = async (req, res) => {
     try {
-      const { UserId, ProductId, price } = req.body;
-      const order = await this.orderService.createOrderService({ UserId, ProductId, price });
+      const { UserId, ProductId, amount } = req.body;
+      const order = await this.orderService.createOrderService({ UserId, ProductId, amount });
       // console.log(`🚀 ~ OrdersControllers ~ createOrder= ~ order:`, order);
       res.status(200).send({ success: true, message: order });
     } catch (error) {
@@ -32,11 +32,11 @@ class OrdersControllers {
     }
   };
   updateOrder = (req, res) => {
-    const order = this.orderService.updateOrderService();
+    const order = this.orderService.updateOrderService(req.params.id);
     res.status(200).send(order);
   };
   deleteOrder = (req, res) => {
-    const order = this.orderService.deleteOrderService();
+    const order = this.orderService.deleteOrderService(req.params.id);
     res.status(200).send(order);
   };
 }

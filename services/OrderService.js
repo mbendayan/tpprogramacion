@@ -13,15 +13,12 @@ class OrderService {
   };
   getOrderByIdService = async (id) => {
     try {
-      const data = await Product.findById(id)({
-        include:User,
-        include:Product
-      });
-      return data;
+      return await Order.findByPk(parseInt(id)).then(data => {return data});
     } catch (error) {
       throw error;
     }
   };
+  
   createOrderService = async (orderData) => {
     try {
       const data = await Order.create(orderData);
@@ -30,11 +27,26 @@ class OrderService {
       throw error;
     }
   };
-  updateOrderService = (id) => {
-    return "update order service";
+
+  updateOrderService = async(orderData) => {
+    try {
+      await User.update(orderData,
+      { where: { id: orderData.id } })
+      .then(data => {return data});
+      return orderData;
+    } catch (error) {
+      throw error;
+    }
   };
-  deleteOrderService = (id) => {
-    return "delete order service";
+
+  deleteOrderService = async (id2) => {
+    try {
+      await Order.destroy({
+        where: { id:id2},
+      })
+    } catch (error) {
+      throw error;
+    }
   };
 }
 

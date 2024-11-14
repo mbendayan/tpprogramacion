@@ -15,8 +15,10 @@ class ProductsControllers {
     }
   };
   getProductById = (req, res) => {
-    const product = this.productService.getProductByIdService();
-    res.status(200).send(product);
+     this.productService.getProductByIdService(req.params.id).then((product) => {
+      res.status(200).send(product);
+    });
+
   };
   createProduct = async (req, res) => {
     try {
@@ -33,11 +35,11 @@ class ProductsControllers {
     }
   };
   updateProduct = (req, res) => {
-    const product = this.productService.updateProductService();
+    const product = this.productService.updateProductService(req.params.id);
     res.status(200).send(product);
   };
   deleteProduct = (req, res) => {
-    const product = this.productService.deleteProductService();
+    const product = this.productService.deleteProductService(req.params.id);
     res.status(200).send(product);
   };
 }

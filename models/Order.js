@@ -5,6 +5,11 @@ class Order extends Model {}
 
 Order.init(
   {
+    id:{
+      type: DataTypes.INTEGER,
+      primaryKey:true,
+      autoIncrement:true,
+    },
     amount: {
       type: DataTypes.INTEGER,
       allowNull: false,

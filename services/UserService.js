@@ -11,9 +11,15 @@ class UserService {
       throw error;
     }
   };
-  getUserByIdService = (id) => {
-    return "get user by id service";
+
+  getUserByIdService = async (id) => {
+    try {
+      return await User.findByPk(parseInt(id)).then(data => {return data});
+    } catch (error) {
+      throw error;
+    }
   };
+  
   createUserService = async (userData) => {
     try {
       const data = await User.create(userData);
@@ -22,11 +28,24 @@ class UserService {
       throw error;
     }
   };
-  updateUserService = (id) => {
-    return "update user service";
+  updateUserService = async(userData) => {
+    try {
+      await User.update(userData,
+      { where: { id: userData.id } })
+      .then(data => {return data});
+      return userData;
+    } catch (error) {
+      throw error;
+    }
   };
-  deleteUserService = (id) => {
-    return "delete user service";
+  deleteUserService = async (id2) => {
+    try {
+      await User.destroy({
+        where: { id:id2},
+      })
+    } catch (error) {
+      throw error;
+    }
   };
 }
 
