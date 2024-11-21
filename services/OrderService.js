@@ -4,7 +4,6 @@ class OrderService {
   getAllOrdersService = async () => {
     try {
       const data = await Order.findAll({
-        include:User
       });
       return data;
     } catch (error) {
@@ -21,6 +20,15 @@ class OrderService {
   
   createOrderService = async (orderData) => {
     try {
+      if(orderData.amount <= 0){
+        throw new Error('Invalid amount');
+      }
+      if(orderData.UserId <= 0){
+        throw new Error('Invalid userId');
+      }
+      if(orderData.ProductId <= 0){
+        throw new Error('Invalid productId');
+      }
       const data = await Order.create(orderData);
       return data;
     } catch (error) {
@@ -30,6 +38,15 @@ class OrderService {
 
   updateOrderService = async(orderData) => {
     try {
+      if(orderData.amount <= 0){
+        throw new Error('Invalid amount');
+      }
+      if(orderData.UserId <= 0){
+        throw new Error('Invalid userId');
+      }
+      if(orderData.ProductId <= 0){
+        throw new Error('Invalid productId');
+      }
       await User.update(orderData,
       { where: { id: orderData.id } })
       .then(data => {return data});

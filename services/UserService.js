@@ -4,7 +4,7 @@ class UserService {
   getAllUsersService = async () => {
     try {
       const data = await User.findAll({
-        attributes:["name"],
+        attributes:["name","mail","createdAt","updatedAt"],
       });
       return data;
     } catch (error) {
@@ -14,7 +14,12 @@ class UserService {
 
   getUserByIdService = async (id) => {
     try {
-      return await User.findByPk(parseInt(id)).then(data => {return data});
+      return await User.findByPk(parseInt(id),{
+        attributes: {
+           exclude: ['pass']
+        }
+      }
+    ).then(data => {return data});
     } catch (error) {
       throw error;
     }
@@ -22,14 +27,24 @@ class UserService {
   
   createUserService = async (userData) => {
     try {
+      let emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+      if (!emailRegex.test(userData.mail)) {
+        throw new Error('Invalid email');
+      }
       const data = await User.create(userData);
       return data;
     } catch (error) {
       throw error;
     }
   };
+
   updateUserService = async(userData) => {
     try {
+      let emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+      if (!emailRegex.test(userData.mail)) {
+        throw new Error('Invalid email');
+      }
+
       await User.update(userData,
       { where: { id: userData.id } })
       .then(data => {return data});

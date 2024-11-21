@@ -18,6 +18,9 @@ class ProductService {
   };
   createProductService = async (productData) => {
     try {
+      if(productData.price <= 0){
+        throw new Error('Invalid price');
+      }
       const data = await Product.create(productData);
       return data;
     } catch (error) {
@@ -27,6 +30,9 @@ class ProductService {
     
   updateProductService = async(productData) => {
       try {
+        if(productData.price <= 0){
+          throw new Error('Invalid price');
+        }
         await User.update(productData,
         { where: { id: productData.id } })
         .then(data => {return data});
@@ -35,7 +41,7 @@ class ProductService {
         throw error;
       }
     };
-    
+
   deleteProductService = async (id2) => {
     try {
       await Product.destroy({
